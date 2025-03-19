@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: ["https://bangladeshsrisingstars.com", "https://www.bangladeshsrisingstars.com"],
+    origin: ["http://bangladeshsrisingstars.com", "http://www.bangladeshsrisingstars.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
