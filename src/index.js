@@ -2,7 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import connectDB from './config/dbConfig.js';
-import { FRONTEND_URL, PORT } from './config/serverConfig.js';
+import { PORT } from './config/serverConfig.js';
 import apiRouter from './routes/apiRouter.js';
 
 const app = express();
@@ -11,7 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: FRONTEND_URL,
+    origin: ["https://bangladeshsrisingstars.com", "https://www.bangladeshsrisingstars.com"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
 
