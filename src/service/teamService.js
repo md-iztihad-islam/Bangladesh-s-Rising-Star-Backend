@@ -3,7 +3,7 @@ import { uploadMedia } from "../utils/cloudinary.js";
 
 export const createTeamService = async ({ tournamentId, teamData }) => {
     try {
-        const { registrationNo, teamName, institutionName, teamManagerName } = teamData.body;
+        const { registrationNo, teamName, institutionName, teamManagerName, teamGroup } = teamData.body;
         const logo = teamData.file;
 
         let cloudResponse;
@@ -24,7 +24,8 @@ export const createTeamService = async ({ tournamentId, teamData }) => {
             institutionName,
             teamManagerName,
             tournament: tournamentId,
-            teamLogo
+            teamLogo,
+            teamGroup
         };
 
         const team = await createTeamRepository(teamObject);

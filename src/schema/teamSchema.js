@@ -59,6 +59,9 @@ const teamSchema = mongoose.Schema({
     },
     teamLogo:{
         type: String,
+    },
+    teamGroup:{
+        type: String,
     }
 }, { timestamps: true });
 
