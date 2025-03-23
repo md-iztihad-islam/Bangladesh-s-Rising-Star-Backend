@@ -1,8 +1,18 @@
 import { createNewsRepository, deleteNewsRepository, getNewsByIdRepository, getNewsRepository } from "../repository/newsRepository.js";
+import { uploadMedia } from "../utils/cloudinary.js";
 
-export const createNewsService = (newsData) => {
+export const createNewsService = async (newsData) => {
     try {
-        const { newsId, newsTitle, newsDescription, newsDate, newsImage, newsLink } = newsData;
+        const { newsId, newsTitle, newsDescription, newsDate, newsLink } = newsData.body;
+        const image = newsData.file;
+
+        let cloudResponse;
+        let newsImage;
+        
+        if(image){
+            cloudResponse = await uploadMedia(image.path);
+            newsImage = cloudResponse.secure_url;
+        }
 
         if (!newsId) {
             throw new Error("News ID is required");

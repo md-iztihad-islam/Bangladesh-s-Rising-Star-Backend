@@ -2,7 +2,7 @@ import { createNewsService, deleteNewsService, getNewsByIdService, getNewsServic
 
 export const createNewsController = (req, res) => {
     try {
-        const newsObject = req.body;
+        const newsObject = req;
 
         const news = createNewsService(newsObject);
 

@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
     origin: ["https://bangladeshsrisingstars.com", "https://www.bangladeshsrisingstars.com"],
+    //origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
