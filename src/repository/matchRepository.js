@@ -1,4 +1,5 @@
 import { Match } from "../schema/matchSchema.js";
+import { Team } from "../schema/teamSchema.js";
 
 export const createMatchRepository = async (matchObject) => {
     try {

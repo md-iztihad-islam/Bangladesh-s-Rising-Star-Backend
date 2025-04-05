@@ -10,8 +10,8 @@ export const createTeamService = async ({ tournamentId, teamData }) => {
         let teamLogo;
 
         if(logo){
-                cloudResponse = await uploadMedia(logo.path);
-                teamLogo = cloudResponse.secure_url;
+            cloudResponse = await uploadMedia(logo.path);
+            teamLogo = cloudResponse.secure_url;
         }
 
         if(!registrationNo || !teamName || !institutionName || !teamManagerName) {

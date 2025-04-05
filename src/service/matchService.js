@@ -1,8 +1,27 @@
 import { createMatchRepository, getAllMatchesRepository, getMatchByIdRepository, getMatchByTournamentRepository, updateMatchRepository } from "../repository/matchRepository.js";
+import { uploadMedia } from "../utils/cloudinary.js";
 
 export const createMatchService = async (matchData, tournamentId) => {
     try {
-        const { matchNo, matchDate, matchTime, matchVenue, matchTeam1, matchTeam2, stage } = matchData;
+        const { matchNo, matchDate, matchTime, matchVenue, matchTeam1, matchTeam2, stage } = matchData.body;
+
+        const matchTeam1LogoPath = matchData.files["matchTeam1Logo"] ? matchData.files["matchTeam1Logo"][0].path : null;
+        const matchTeam2LogoPath = matchData.files["matchTeam2Logo"] ? matchData.files["matchTeam2Logo"][0].path : null;
+
+        let cloudResponse;
+        let matchTeam1Logo;
+        let matchTeam2Logo;
+
+        
+        if(matchTeam1LogoPath){
+            cloudResponse = await uploadMedia(matchTeam1LogoPath);
+            matchTeam1Logo = cloudResponse.secure_url;
+        }
+
+        if(matchTeam2LogoPath){
+            cloudResponse = await uploadMedia(matchTeam2LogoPath);
+            matchTeam2Logo = cloudResponse.secure_url;
+        }
 
         const matchObject = {
             matchNo,
@@ -13,6 +32,8 @@ export const createMatchService = async (matchData, tournamentId) => {
             matchTeam2,
             tournament: tournamentId,
             stage,
+            matchTeam1Logo,
+            matchTeam2Logo,
         };
 
         const match = await createMatchRepository(matchObject);
@@ -26,7 +47,24 @@ export const createMatchService = async (matchData, tournamentId) => {
 
 export const updateMatchService = async (matchId, matchData) => {
     try {
-        const { matchNo, matchDate, matchTime, matchVenue, matchTeam1, matchTeam2, isPlayed, team01Goal, team02Goal, videoUrl, stage} = matchData;
+        const { matchNo, matchDate, matchTime, matchVenue, matchTeam1, matchTeam2, isPlayed, team01Goal, team02Goal, videoUrl, stage} = matchData.body;
+        const matchTeam1LogoPath = matchData.files["matchTeam1Logo"] ? matchData.files["matchTeam1Logo"][0].path : null;
+        const matchTeam2LogoPath = matchData.files["matchTeam2Logo"] ? matchData.files["matchTeam2Logo"][0].path : null;
+
+        let cloudResponse;
+        let matchTeam1Logo;
+        let matchTeam2Logo;
+
+        if(matchTeam1LogoPath){
+            cloudResponse = await uploadMedia(matchTeam1LogoPath);
+            matchTeam1Logo = cloudResponse.secure_url;
+        }
+
+        if(matchTeam2LogoPath){
+            cloudResponse = await uploadMedia(matchTeam2LogoPath);
+            matchTeam2Logo = cloudResponse.secure_url;
+        }
+
 
         const matchObject = {
             matchNo,
@@ -35,6 +73,8 @@ export const updateMatchService = async (matchId, matchData) => {
             matchVenue,
             matchTeam1,
             matchTeam2,
+            matchTeam1Logo,
+            matchTeam2Logo,
             isPlayed,
             team01Goal,
             team02Goal,

@@ -21,7 +21,15 @@ const matchSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    matchTeam1Logo:{
+        type: String,
+        required: true
+    },
     matchTeam2:{
+        type: String,
+        required: true
+    },
+    matchTeam2Logo:{
         type: String,
         required: true
     },

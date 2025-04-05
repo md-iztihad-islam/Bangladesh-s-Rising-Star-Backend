@@ -2,7 +2,8 @@ import { createMatchService, getAllMatchesService, getMatchByIdService, getMatch
 
 export const createMatchController = async (req, res) => {
     try {
-        const matchData = req.body;
+        const matchData = req;
+        console.log("Match Data: ", matchData.body);
         const tournamentId = req.params.tournamentId;
 
         const match = await createMatchService(matchData, tournamentId);
@@ -31,7 +32,7 @@ export const createMatchController = async (req, res) => {
 export const updateMatchController = async (req, res) => {
     try {
         const matchId = req.params.matchId;
-        const matchData = req.body;
+        const matchData = req;
 
         const match = await updateMatchService(matchId, matchData);
 

@@ -5,6 +5,7 @@ import liveRouter from './liveRouter.js';
 import newsRouter from './newsRouter.js';
 import tournamentRouter from './tournamentRouter.js';
 import productRouter from './productRouter.js';
+import venueRouter from './venueRouter.js';
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.use("/live", liveRouter);
 router.use("/news", newsRouter);
 router.use("/tournament", tournamentRouter);
 router.use("/product", productRouter);
+router.use("/venue", venueRouter);
 
 export default router;
 
