@@ -1,9 +1,9 @@
-import { addPlayerRepository, createTeamRepository, deleteTeamRepository, findTeamPlayersRepository, getTeamByIdRepository, getTeamRepository, updateTeamRepository } from "../repository/teamRepository.js";
+import { addPlayerRepository, createTeamRepository, deleteTeamRepository, findTeamPlayersRepository, getTeamByIdRepository, getTeamRepository, updateTeamDataRepository, updateTeamRepository } from "../repository/teamRepository.js";
 import { uploadMedia } from "../utils/cloudinary.js";
 
 export const createTeamService = async ({ tournamentId, teamData }) => {
     try {
-        const { registrationNo, teamName, institutionName, teamManagerName, teamGroup } = teamData.body;
+        const { registrationNo, teamName, institutionName, teamManagerName, teamGroup, teamDescription } = teamData.body;
         const logo = teamData.file;
 
         let cloudResponse;
@@ -25,7 +25,8 @@ export const createTeamService = async ({ tournamentId, teamData }) => {
             teamManagerName,
             tournament: tournamentId,
             teamLogo,
-            teamGroup
+            teamGroup,
+            teamDescription,
         };
 
         const team = await createTeamRepository(teamObject);
@@ -112,5 +113,27 @@ export const updateTeamService = async (id, teamData) => {
     } catch (error) {
         console.log("Error in updateTeamService: ", error);
         throw new Error("Error in update TeamService");
+    }
+};
+
+export const updateTeamDataService = async (id, teamData) => {
+    try {
+        const { registrationNo, teamName, institutionName, teamManagerName, teamGroup, teamDescription } = teamData.body;
+
+        const teamObject = {
+            registrationNo,
+            teamName,
+            institutionName,
+            teamManagerName,
+            teamGroup,
+            teamDescription,
+        };
+
+        const team = await updateTeamDataRepository(id, teamObject);
+
+        return team;
+    } catch (error) {
+        console.log("Error in updateTeamDataService: ", error);
+        throw new Error("Error in updateTeamDataService");        
     }
 };

@@ -1,4 +1,4 @@
-import { addPlayerService, createTeamService, deleteTeamService, findTeamPlayersService, getTeamByIdService, getTeamService, updateTeamService } from "../service/teamService.js";
+import { addPlayerService, createTeamService, deleteTeamService, findTeamPlayersService, getTeamByIdService, getTeamService, updateTeamDataService, updateTeamService } from "../service/teamService.js";
 
 export const createTeamController = async (req, res) => {
     try {
@@ -182,6 +182,34 @@ export const updateTeamController = async (req, res) => {
         });
     } catch (error) {
         console.log("Error in updateTeamController: ", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
+
+export const updateTeamDataController = async (req, res) => {
+    try {
+        const id = req.params.teamId;
+        const teamData = req;
+
+        const team = await updateTeamDataService(id, teamData);
+
+        if (!team) {
+            return res.status(400).json({
+                success: false,
+                message: "No team found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Team updated successfully",
+            data: team
+        });
+    } catch (error) {
+        console.log("Error in updateTeamDataController: ", error);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error"

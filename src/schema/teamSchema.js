@@ -9,6 +9,9 @@ const teamSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    teamDescription:{
+        type: String,
+    },
     institutionName:{
         type: String,
         required: true

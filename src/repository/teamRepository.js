@@ -83,3 +83,14 @@ export const updateTeamRepository = async (id, teamObject) => {
         throw new Error("Error in updateTeamRepository");
     }
 };
+
+export const updateTeamDataRepository = async (id, teamObject) => {
+    try {
+        const team = await Team.findByIdAndUpdate(id, teamObject, { new: true });
+
+        return team;
+    } catch (error) {
+        console.log("Error in updateTeamDataRepository: ", error);
+        throw new Error("Error in updateTeamDataRepository");
+    }
+};
